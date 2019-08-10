@@ -1,0 +1,38 @@
+<!--<div ng-include src="'partials/menu.html'"></div> -->
+
+<div blog-menu menu-title="AngularJS MEAN Blog"></div>
+
+<div id="container" class="container">
+
+
+    <div class="blog-post-label">Blog Posts</div>
+    <div class="post-wrapper">
+        <div class="panel panel-primary" ng-repeat="blogPost in blogList">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{blogPost.introText}}</h3>
+            </div>
+            <div class="panel-body">
+                <a href="#!blogPost/{{blogPost._id}}">Read More</a>
+            </div>
+            <div class="panel-footer">
+                Posted: {{blogPost.date | date:'MM/dd/yyyy @ h:mma'}}
+                
+            </div>
+        </div>
+
+        <div ng-repeat="blogPost in blogList" class="hide">
+            <div class="blog-post-outer">
+                <div class="blog-intro-text">
+                    Posted: {{blogPost.date | date:'MM/dd/yyyy @ h:mma'}}
+                </div>
+                <div class="blog-intro-text">
+                    {{blogPost.introText}}
+                </div>
+                <div class="blog-read-more">
+                    <a href="#!blogPost/{{blogPost._id}}">Read More</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

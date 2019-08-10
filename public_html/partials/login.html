@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+
+<body>
+    <div id="login-container">
+        <form class="form-horizontal" ng-controller="LoginCtrl" ng-submit="submit()">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Usernmae:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" ng-model="username" name="username" required>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Password:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="password" ng-model="password" name="password" required>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button class="btn btn-primary" type="submit">Sign In</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

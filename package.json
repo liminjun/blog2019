@@ -1,0 +1,14 @@
+{
+    "name": "sae-nodejs",
+    "version": "1.0.0",
+    "author": "sae",
+    "description": "The first sae nodejs app!",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "body-parser":"*",
+        "express":"*"
+    }
+}
+

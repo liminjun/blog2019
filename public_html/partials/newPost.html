@@ -1,0 +1,34 @@
+<div blog-menu menu-title="AngularJS MEAN Blog"></div>
+
+<div id="container" class="container">
+    <div class="blog-post-label">New Blog Posts</div>
+    <div class="blog-post-wrapper">
+        <form ng-submit="submit()" ng-controller="NewBlogPostCtrl">
+            <div class="form-group">
+                <label for="introText">Intro Text:</label>
+
+                <input class="form-control" type="text" ng-model="introText" name="introText" placeholder="Intro Text" required/>
+            </div>
+
+
+            <div class="form-group">
+                <label for="blogText">Blog Text:</label>
+                <textarea class="form-control" type="text" ng-model="blogText" name="blogText" placeholder="Blog Text" required/>
+            </div>
+
+
+            <div class="form-group">
+                <label for="blogText">Language:</label>
+                <div class="">
+                    <select class="form-control" ng-model="languageId" ng-options="lan.id as lan.name for lan in languageList" name="languageId"
+                        required>
+                </select>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,12 +1,9 @@
-基于Node.js编写简单博客系统，提供API给到前端调用。
-
 ## 1.angularjs-blog
 AngularJS Blog according to Learning AngularJS.
 
 ## 2.架构
--前端：AngularJS+BootStrap
-后台：Node.js+Express
-数据存储：JSON
+AngularJS+BootStrap
+
 
 ## 3.部署平台
 [BAE](http://cloud.baidu.com)
