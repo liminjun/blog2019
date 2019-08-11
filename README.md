@@ -4,16 +4,16 @@
 AngularJS Blog according to Learning AngularJS.
 
 ## 2.架构
--前端：AngularJS+BootStrap
-后台：Node.js+Express
-数据存储：JSON
+- 前端：AngularJS+BootStrap
+- 后台：Node.js+Express
+- 数据存储：JSON
 
 ## 3.部署平台
-[BAE](http://cloud.baidu.com)
+[Sina App Engine](https://sae.sinacloud.com)
 
 ## 4.API
 
-api地址：http://angularjsblog.duapp.com/api/
+地址：http://blog2019.applinzi.com/api
 ### 用户模块
 - 注册
 - 登录
@@ -31,14 +31,56 @@ api地址：http://angularjsblog.duapp.com/api/
 - 删除评论
 
 
-### 4.1登录
-url:
-`login`
-参数：
-username
-password
+### 4.1用户模块
 
+### 登录
+
+接口调用说明：
+```
+POST http://api/login
+```
+
+参数说明：
+|参数|是否必填|默认值|说明|
+|----|-----|----|----|
+username|是|无|用户名
+password|是|无|密码
+
+返回数据格式
+```
+{"authenticated":true}
+```
+参数说明：
+|参数|说明|
+|---|---|
+|authenticated|true表示成功，false表示失败|
+
+**说明**
 测试账号必须是：admin 123456
+
+
+### 注销
+
+接口调用说明：
+```
+POST http://api/login
+```
+
+参数说明：
+|参数|是否必填|默认值|说明|
+|----|-----|----|----|
+username|是|无|用户名
+password|是|无|密码
+
+返回数据格式
+```
+{"authenticated":true}
+```
+参数说明：
+|参数|说明|
+|---|---|
+|authenticated|true表示成功，false表示失败|
+
 ### 4.2文章
 
 #### 4.2.1获取文章详细信息

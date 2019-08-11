@@ -26,7 +26,7 @@ blogApp.config(['$routeProvider', '$locationProvider',
                     controller:"LoginCtrl"
                 })
                 .when('/logout',{
-                    templateUrl:"partials/login.html",
+                   
                     controller:"LogoutCtrl"
                 })
                 .when('/newBlogPost', {

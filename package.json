@@ -7,8 +7,8 @@
         "start": "node server.js"
     },
     "dependencies": {
-        "body-parser":"*",
-        "express":"*"
+        "body-parser": "*",
+        "express": "*",
+        "express-session": "^1.16.2"
     }
 }
-

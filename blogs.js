@@ -1,5 +1,5 @@
 var fs = require('fs');
-
+var session = require('express-session');
 module.exports.get = function (req, res) {
     var blogId = req.params.id;
     var blog = JSON.parse(fs.readFileSync('./public_html/data/blog/' + blogId + '.json', 'utf8'));
@@ -74,6 +74,7 @@ module.exports.saveComment = function (req, res) {
 }
 //获取所有blog数据
 module.exports.getAll = function (req, res) {
+
     var path = './public_html/data/blog';
 
     var files = [];
