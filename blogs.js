@@ -5,7 +5,7 @@ module.exports.get = function (req, res) {
     var blog = JSON.parse(fs.readFileSync('./public_html/data/blog/' + blogId + '.json', 'utf8'));
 
     fs.exists('./public_html/data/comment/' + blogId + '.json', function (exists) {
-        
+
         if (exists) {
             var comment = JSON.parse(fs.readFileSync('./public_html/data/comment/' + blogId + '.json', 'utf8'));
             blog["comments"] = comment;
@@ -48,7 +48,7 @@ module.exports.saveComment = function (req, res) {
         var blogId = req.params.id;
 
         fs.exists('./public_html/data/comment/' + blogId + '.json', function (exists) {
-            
+
             if (exists) {
                 var commentList = JSON.parse(fs.readFileSync('./public_html/data/comment/' + blogId + '.json', 'utf8'));
                 commentList.push(comment);
@@ -75,30 +75,35 @@ module.exports.saveComment = function (req, res) {
 //获取所有blog数据
 module.exports.getAll = function (req, res) {
 
-    var path = './public_html/data/blog';
+    if (req.session.loginUser) {
+        var path = './public_html/data/blog';
 
-    var files = [];
-    try {
-        files = fs.readdirSync(path);
-    }
-    catch (e) {
-        console.log("error:" + e);
-        res.send('[]');
-        res.end();
-    }
-    var results = "[";
-    if (files.length>0){
-        for (var i = 0; i < files.length; i++) {
-            if (files[i].indexOf(".json") == files[i].length - 5) {
-                results += fs.readFileSync(path + "/" + files[i]) + ",";
-            }
+        var files = [];
+        try {
+            files = fs.readdirSync(path);
         }
-        results = results.substr(0, results.length - 1);
+        catch (e) {
+            console.log("error:" + e);
+            res.send('[]');
+            res.end();
+        }
+        var results = "[";
+        if (files.length > 0) {
+            for (var i = 0; i < files.length; i++) {
+                if (files[i].indexOf(".json") == files[i].length - 5) {
+                    results += fs.readFileSync(path + "/" + files[i]) + ",";
+                }
+            }
+            results = results.substr(0, results.length - 1);
+        }
+
+        results += "]";
+
+        res.setHeader("Content-Type", "application/json");
+        res.send({ success: true, entity: JSON.parse(results) });
+        res.end();
+    } else {
+        res.send({ success: false, message: "请登录" });
     }
 
-    results += "]";
-
-    res.setHeader("Content-Type", "application/json");
-    res.send(results);
-    res.end();
 }

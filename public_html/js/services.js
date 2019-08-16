@@ -18,7 +18,7 @@ blogServices.factory('BlogPost', ['$resource',
 //博客列表
 blogServices.factory('BlogList', ['$resource', function ($resource) {
     return $resource(serverUrl+"/api/blogs", {}, {
-        get: { method: 'GET', cache: false, isArray: true }
+        get: { method: 'GET', cache: false, isArray: false }
     });
 }]);
 //用户登录
@@ -27,6 +27,13 @@ blogServices.factory('Login', ['$resource', function ($resource) {
         login: { method: "POST", cache: false, isArray: false }
     });
 }]);
+
+blogServices.factory('Loginout', ['$resource', function ($resource) {
+    return $resource(serverUrl+"/api/logout", {}, {
+        logout: { method: "POST", cache: false, isArray: false }
+    });
+}]);
+
 //发表评论
 blogServices.factory('BlogPostComments', ['$resource', function ($resource) {
     return $resource(serverUrl+"/api/comment/:id", {}, {

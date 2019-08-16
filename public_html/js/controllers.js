@@ -12,7 +12,12 @@ blogControllers.controller('BlogCtrl', ['$scope', 'BlogList', 'checkCreds', '$lo
             $location.path('/login');
         }
         BlogList.get({}, function (response) {
-            $scope.blogList = response;
+            if (response.success) {
+                $scope.blogList = response.entity;
+            } else {
+                $scope.blogList = [];
+            }
+
         }, function (error) {
             console.log("Error:" + JSON.stringify(error));
         });
@@ -59,7 +64,7 @@ blogControllers.controller('BlogViewCtrl', ['$scope', '$routeParams', 'BlogPost'
                 "commentText": $scope.commentText,
                 "blog": $scope.blogId
             };
-            BlogPostComments.save({id: $scope.blogId }, postData, function (response) {
+            BlogPostComments.save({ id: $scope.blogId }, postData, function (response) {
                 $location.path("/blogPost/" + $scope.blogId);
                 $route.reload();
             }, function (error) {
@@ -70,37 +75,37 @@ blogControllers.controller('BlogViewCtrl', ['$scope', '$routeParams', 'BlogPost'
     }]);
 
 //新建博客控制器
-blogControllers.controller('NewBlogPostCtrl', ['$scope', '$routeParams', 'BlogPost','checkCreds','$http','getToken','$location', function ($scope, $routeParams, BlogPost,checkCreds,$http,getToken,$location) {
-    if(!checkCreds()){
+blogControllers.controller('NewBlogPostCtrl', ['$scope', '$routeParams', 'BlogPost', 'checkCreds', '$http', 'getToken', '$location', function ($scope, $routeParams, BlogPost, checkCreds, $http, getToken, $location) {
+    if (!checkCreds()) {
         $location.path("/login");
     }
-    $scope.languageList=[
+    $scope.languageList = [
         {
-                "id": 1,
-                "name" : "中文简体"
-            },
-            {
-                "id": 2,
-                "name" : "English"
-            }
+            "id": 1,
+            "name": "中文简体"
+        },
+        {
+            "id": 2,
+            "name": "English"
+        }
     ];
-    $scope.languageId=1;
-    $scope.newACtiveClass="active";
-    $scope.submit=function(){
-        $scope.sub=true;
+    $scope.languageId = 1;
+    $scope.newACtiveClass = "active";
+    $scope.submit = function () {
+        $scope.sub = true;
 
         $http.defaults.headers.common['Authorization'] = 'Basic ' + getToken();
-        var postData={
-            "introText":$scope.introText,
-            "blogText":$scope.blogText,
-            "languageId":$scope.languageId
+        var postData = {
+            "introText": $scope.introText,
+            "blogText": $scope.blogText,
+            "languageId": $scope.languageId
         };
-        var blogId=Date.now();
-        BlogPost.save({ id: blogId },postData,function(response){
-            console.log("Success:"+JSON.stringify(response));
+        var blogId = Date.now();
+        BlogPost.save({ id: blogId }, postData, function (response) {
+            console.log("Success:" + JSON.stringify(response));
             $location.path("/");
-        },function(errorResponse){
-            console.log("Error:"+JSON.stringify(errorResponse));
+        }, function (errorResponse) {
+            console.log("Error:" + JSON.stringify(errorResponse));
         });
     }
 }]);
@@ -114,7 +119,7 @@ blogControllers.controller('LoginCtrl', ['$scope', '$location', 'Login', 'setCre
         };
 
         Login.login({}, postData, function (response) {
-            if (response.authenticated) {
+            if (response.success) {
                 setCreds($scope.username, $scope.password);
                 $location.path("/");
             } else {
@@ -127,13 +132,25 @@ blogControllers.controller('LoginCtrl', ['$scope', '$location', 'Login', 'setCre
 }]);
 
 
-blogControllers.controller('LogoutCtrl', ['$scope', '$location', 'Login', 'deleteCreds', function ($scope, $location, $Login, deleteCreds) {
-    deleteCreds();
-    $location.path("/login");
+blogControllers.controller('LogoutCtrl', ['$scope', '$location', 'Loginout', 'deleteCreds', function ($scope, $location, Loginout, deleteCreds) {
+    Loginout.logout({}, function (response) {
+        debugger;
+        if (response.success) {
+            debugger;
+            deleteCreds();
+            $location.path("/login");
+        } else {
+            alert("注销失败");
+        }
+    }, function (error) {
+        console.log("Error:" + JSON.stringify(error));
+    })
 
-    }]);
 
 
-blogControllers.controller('AboutCtrl', ['$scope', '$routeParams', function($scope, $routeParams) {
+}]);
 
+
+blogControllers.controller('AboutCtrl', ['$scope', '$routeParams', function ($scope, $routeParams) {
+    $scope.version="v2.0";
 }]);

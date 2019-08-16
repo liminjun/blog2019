@@ -31,20 +31,17 @@ app.use(bodyParser.json());
 app.use(express.static(rootPath + '/public_html'));
 
 
-app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}))
+app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 6000000 }}))
 
 app.post('/api/login', user.login);
 app.post('/api/register',user.register)
-// app.post('/api/logout',user.logout);
+app.post('/api/logout',user.logout);
 
 app.get('/api/blog/:id', blogs.get);
 app.post('/api/blog/:id', blogs.post);
 app.get('/api/blogs/', blogs.getAll);
 
 
-app.get('/api/blog/:id', blogs.get);
-app.post('/api/blog/:id', blogs.post);
-app.get('/api/blogs/', blogs.getAll);
 
 //profile
 app.get('/api/profile/:id', profile.get);

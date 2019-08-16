@@ -57,7 +57,7 @@ module.exports.register = function (req, res) {
 var findUser = function (username, password) {
     const userList = JSON.parse(fs.readFileSync('./public_html/data/user/user.json', 'utf8'));
     return userList.find(function (item) {
-        return item.username === name && item.password === password;
+        return item.username === username && item.password === password;
     });
 }
 module.exports.login = function (req, res) {
@@ -67,16 +67,16 @@ module.exports.login = function (req, res) {
     if (!req.is('application/json')) {
         res.status(415);
     } else {
-        if (reqBody.username === username && reqBody.password === password) {
+        if (findUser(reqBody.username, reqBody.password)) {
             session.regenerate(function (err) {
                 if (err) {
-                    return res.json({ ret_code: 2, ret_msg: '登录失败' });
+                    return res.json({ success: false, message: '登录失败' });
                 }
-                req.session.loginUser = user.name;
-                res.json({ ret_code: 0, ret_msg: '登录成功' });
+                req.session.loginUser = reqBody.username;
+                res.json({ success: true, message: '登录成功' });
             })
         } else {
-            res.json({ ret_code: 1, ret_msg: '账号或密码错误' });
+            res.json({ success: false, message: '账号或密码错误' });
         }
     }
 
@@ -84,12 +84,15 @@ module.exports.login = function (req, res) {
 
 //用户注销
 module.exports.logout = function (req, res) {
-    req.session.destory(function(err){
-        if(err){
-            return res.json({ret_code: 2, ret_msg: '退出登录失败'});
-            
+    req.session.destroy(function (err) {
+        if (err) {
+            return res.json({ success: false, message: '注销失败' });
+
+        } else {
+            res.clearCookie();
+            //res.redirect('/');
+            return res.json({ success: true, message: '注销成功' });
         }
-        res.clearCookie();
-        res.redirect('/');
+
     });
 }

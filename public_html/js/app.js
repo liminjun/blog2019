@@ -26,7 +26,7 @@ blogApp.config(['$routeProvider', '$locationProvider',
                     controller:"LoginCtrl"
                 })
                 .when('/logout',{
-                   
+                    template:"<span>用户注销中</span>",
                     controller:"LogoutCtrl"
                 })
                 .when('/newBlogPost', {

@@ -29,6 +29,7 @@ blogBusinessServices.factory('deleteCreds',['$cookies',function($cookies){
     return function(){
         $cookies.blogCreds="";
         $cookies.blogUserName="";
+        $cookies["connect.sid"]="";
     }
 }]);
 
